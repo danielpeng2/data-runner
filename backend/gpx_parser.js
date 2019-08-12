@@ -50,7 +50,7 @@ const parse = (gpx) => new Promise((resolve, reject) => {
   parser.parseString(gpx, (err, result) => {
     if (err) return reject(err)
     const date = new Date(result.gpx.metadata.time)
-    const {coords, distance, name, pace, time} = _getRunDetails(result.gpx.trk)
+    const { coords, distance, name, pace, time } = _getRunDetails(result.gpx.trk)
     return resolve({
       date,
       coords,
