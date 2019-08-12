@@ -12,9 +12,9 @@ const _haversineDistance = (prevCoord, curCoord) => {
 
   var a = Math.sin(_toRad(dLat)/2) * Math.sin(_toRad(dLat)/2) +
           Math.cos(_toRad(lat1)) * Math.cos(_toRad(lat2)) *
-          Math.sin(_toRad(dLon)/2) * Math.sin(_toRad(dLon)/2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  var d = _RADIUS * c;
+          Math.sin(_toRad(dLon)/2) * Math.sin(_toRad(dLon)/2)
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+  var d = _RADIUS * c
   return d
 }
 
