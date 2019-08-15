@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+const middleware = require('./utils/middleware')
 
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
@@ -17,5 +18,8 @@ app.use(cors())
 app.get('/', async (req, res) => {
   res.send('<div>a<div>')
 })
+
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 module.exports = app
