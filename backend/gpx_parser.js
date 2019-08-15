@@ -18,7 +18,7 @@ const _haversineDistance = (prevCoord, curCoord) => {
   return d
 }
 
-const _getRunDetails = (trk) => {
+const _getActivityDetails = (trk) => {
   const coords = []
   const name = trk.name
   const points = trk.trkseg.trkpt
@@ -50,7 +50,7 @@ const parse = (gpx) => new Promise((resolve, reject) => {
   parser.parseString(gpx, (err, result) => {
     if (err) return reject(err)
     const date = new Date(result.gpx.metadata.time)
-    const { coords, distance, name, pace, time } = _getRunDetails(result.gpx.trk)
+    const { coords, distance, name, pace, time } = _getActivityDetails(result.gpx.trk)
     return resolve({
       date,
       coords,
