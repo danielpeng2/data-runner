@@ -1,10 +1,9 @@
-const fs = require('fs')
-const gpxParser = require('./gpx_parser.js')
+const app = require('./app')
+const config = require('./utils/config')
+const http = require('http')
 
-const data = fs.readFileSync('Carnival_10k.gpx')
-const demo = async() => {
-  const test = await gpxParser.parse(data.toString())
-  console.log(test)
-}
+const server = http.createServer(app)
 
-demo()
+server.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`)
+})

@@ -42,7 +42,7 @@ const _getRunDetails = (trk) => {
     distance,
     name,
     pace,
-    time
+    time,
   }
 }
 
@@ -57,7 +57,7 @@ const parse = (gpx) => new Promise((resolve, reject) => {
       distance,
       name,
       pace,
-      time
+      time,
     })
   })
 })
