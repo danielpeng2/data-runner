@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const activitySchema = new mongoose.Schema({
   date: Date,
   coords: [{
+    _id: false,
     lat: String,
     lon: String,
   }],
