@@ -1,7 +1,6 @@
 const Activity = require('../models/activity')
 
 const getActivities = async() => {
-  throw Error('sdf')
   return await Activity.find({})
 }
 
