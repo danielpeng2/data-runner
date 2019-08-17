@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const config = require('./utils/config')
 const cors = require('cors')
-const activitiesRouter = require('./controllers/activities')
+const activitiesRouter = require('./routes/activities')
 const mongoose = require('mongoose')
 const middleware = require('./utils/middleware')
 
