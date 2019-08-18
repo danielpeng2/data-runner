@@ -1,10 +1,19 @@
-const errorHandler = (error, request, response, next) => {
-  console.log(error.message)
-  next(error)
+const errorHandler = (err, req, res, next) => {
+  if (err.name === 'CastError' && err.kind === 'ObjectId') {
+    return res.status(400).send({
+      error: 'malformatted id'
+    })
+  } else if (err.name === 'ValidationError') {
+    return res.status(400).json({
+      error: err.message
+    })
+  }
+  console.error(err.message)
+  next(err)
 }
 
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
+const unknownEndpoint = (req, res) => {
+  res.status(404).send({ error: 'unknown endpoint' })
 }
 
 module.exports = {
