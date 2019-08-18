@@ -1,11 +1,15 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 const config = require('./utils/config')
 const cors = require('cors')
-const activitiesRouter = require('./routes/activities')
 const mongoose = require('mongoose')
+
+const activitiesRouter = require('./routes/activities')
+const usersRouter = require('./routes/users')
 const middleware = require('./utils/middleware')
 
+mongoose.set('useCreateIndex', true);
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
     console.log('connected to MongoDB')
@@ -15,12 +19,14 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
   })
 
 app.use(cors())
+app.use(bodyParser.json())
 
 app.get('/', async (req, res) => {
   res.send('<div>a<div>')
 })
 
 app.use('/api/activities', activitiesRouter)
+app.use('/api/users', usersRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

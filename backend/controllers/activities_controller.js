@@ -2,6 +2,7 @@ const formidable = require('formidable')
 const fs = require('fs')
 
 const activitiesRepo = require('../repositories/activities_repo')
+const usersRepo = require('../repositories/users_repo')
 const gpxParser = require('../utils/gpx_parser')
 
 const getActivities = async(req, res, next) => {
@@ -15,26 +16,39 @@ const getActivities = async(req, res, next) => {
 
 const uploadActivity = async(req, res, next) => {
   var form = new formidable.IncomingForm()
+  const fields = {}
+  const files = []
 
-  form.on('file', async(field, file) => {
-    try {
-      const data = fs.readFileSync(file.path)
-      const activityData = await gpxParser.parse(data.toString())
-      await activitiesRepo.saveActivity(activityData)
-    } catch(err) {
-      next(err)
-    }
-  })
+  form
+    .on('error', (err) => {
+      return next(err)
+    })
+    .on('field', (field, value) => {
+      fields[field] = value
+    })
+    .on('file', (field, file) => {
+      files.push(file)
+    })
+    .on('end', async() => {
+      if (!fields.userId) return next(Error('No userId given with activity'))
+      savedActivities = []
+      try {
+        const user = await usersRepo.getUserById(fields.userId)
+        for (const file of files) {
+          const data = fs.readFileSync(file.path)
+          const activityData = await gpxParser.parse(data.toString())
+          activityData.user = user._id
+          const savedActivity = await activitiesRepo.saveActivity(activityData)
 
-  form.on('end', () => {
-    res.json()
-  })
-
-  form.on('error', (err) => {
-    console.error('Error uploading file', err)
-    next(err)
-  })
-
+          user.activities = user.activities.concat(savedActivity._id)
+          await usersRepo.updateUser(user)
+          savedActivities.push(savedActivity)
+        }
+        res.json(savedActivities)
+      } catch(err) {
+        next(err)
+      }
+    })
   form.parse(req)
 }
 

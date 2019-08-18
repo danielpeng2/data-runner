@@ -6,7 +6,7 @@ const getActivities = async() => {
 
 const saveActivity = async(activityData) => {
   const activity = new Activity(activityData)
-  await activity.save()
+  return await activity.save()
 }
 
 module.exports = {

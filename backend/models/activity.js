@@ -11,6 +11,10 @@ const activitySchema = new mongoose.Schema({
   name: String,
   pace: Number,
   time: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 })
 
 activitySchema.set('toJSON', {
