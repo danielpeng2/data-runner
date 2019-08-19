@@ -4,6 +4,10 @@ const getUserById = async(userId) => {
   return await User.findById(userId)
 }
 
+const getUserByUsername = async(name) => {
+  return await User.findOne({ username: name })
+}
+
 const saveUser = async(userData) => {
   const user = new User(userData)
   return await user.save()
@@ -15,6 +19,7 @@ const updateUser = async(user) => {
 
 module.exports = {
   getUserById,
+  getUserByUsername,
   saveUser,
   updateUser,
 }

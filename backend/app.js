@@ -6,6 +6,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 
 const activitiesRouter = require('./routes/activities')
+const loginRouter = require('./routes/login')
 const usersRouter = require('./routes/users')
 const middleware = require('./utils/middleware')
 
@@ -26,6 +27,7 @@ app.get('/', async (req, res) => {
 })
 
 app.use('/api/activities', activitiesRouter)
+app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 
 app.use(middleware.unknownEndpoint)
