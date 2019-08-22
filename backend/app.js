@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
 app.use('/api/activities', activitiesRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/register', registerRouter)
-app.use('/api/users', usersRouter)
+app.use('/api/user', usersRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

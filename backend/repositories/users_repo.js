@@ -1,7 +1,7 @@
 const User = require('../models/user')
 
 const getUserById = async(userId) => {
-  return await User.findById(userId)
+  return await User.findById(userId).populate('activities')
 }
 
 const getUserByUsername = async(name) => {

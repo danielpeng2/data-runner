@@ -1,25 +1,17 @@
-const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const usersRepo = require('../repositories/users_repo')
+const tokenUtils = require('../utils/token_utils')
 
-const SALT_ROUNDS = 10
-
-const createUser = async(req, res, next) => {
-  const body = req.body
-  const passwordHash = await bcrypt.hash(body.password, SALT_ROUNDS)
-
+const getUser = async(req, res, next) => {
   try {
-    const user = {
-      username: body.username,
-      name: body.name,
-      passwordHash,
-    }
-    const savedUser = await usersRepo.saveUser(user)
-    res.json(savedUser)
+    var decodedToken = tokenUtils.getDecodedTokenFromRequest(req)
   } catch(err) {
-    next(err)
+    return next(err)
   }
+  const user = await usersRepo.getUserById(decodedToken.id)
+  res.json(user)
 }
 
 module.exports = {
-  createUser,
+  getUser,
 }
