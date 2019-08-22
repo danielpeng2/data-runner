@@ -16,7 +16,7 @@ const createUserAndLogin = async(req, res, next) => {
   try {
     user = await usersRepo.saveUser(userData)
   } catch(err) {
-    return next(error)
+    return next(err)
   }
   const token = _getUserToken(user)
   res

@@ -49,7 +49,6 @@ const uploadActivity = async(req, res, next) => {
         for (const file of files) {
           const data = fs.readFileSync(file.path)
           const activityData = await gpxParser.parse(data.toString())
-          activityData.user = user._id
           const savedActivity = await activitiesRepo.saveActivity(activityData)
 
           user.activities = user.activities.concat(savedActivity._id)
