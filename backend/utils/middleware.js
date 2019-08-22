@@ -11,6 +11,10 @@ const errorHandler = (err, req, res, next) => {
     return res.status(401).json({
       error: 'invalid token'
     })
+  } else if (err.name === 'RequestTokenError') {
+    return res.status(401).json({
+      error: err.message
+    })
   }
   console.error(err.message)
   next(err)
