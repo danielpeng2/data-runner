@@ -30,9 +30,8 @@ const createUserAndLogin = async(req, res, next) => {
 
 const login = async(req, res, next) => {
   const body = req.body
-  let user
   try {
-    user = await usersRepo.getUserByUsername(body.username)
+    var user = await usersRepo.getUserByUsername(body.username)
   } catch(err) {
     return next(err)
   }
