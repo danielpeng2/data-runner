@@ -9,7 +9,6 @@ const createUserAndLogin = async(req, res, next) => {
   const passwordHash = await bcrypt.hash(body.password, SALT_ROUNDS)
   const userData = {
     username: body.username,
-    name: body.name,
     passwordHash,
   }
   let user
@@ -24,7 +23,6 @@ const createUserAndLogin = async(req, res, next) => {
     .send({
       token,
       username: user.username,
-      name: user.name,
     })
 }
 
@@ -48,7 +46,6 @@ const login = async(req, res, next) => {
     .send({
       token,
       username: user.username,
-      name: user.name,
     })
 }
 
