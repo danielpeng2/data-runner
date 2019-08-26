@@ -6,6 +6,24 @@ const usersRepo = require('../repositories/users_repo')
 const gpxParser = require('../utils/gpx_parser')
 const tokenUtils = require('../utils/token_utils')
 
+const deleteActivity = async(req, res, next) => {
+  try {
+    const decodedToken = tokenUtils.getDecodedTokenFromRequest(req)
+    const activity = await activitiesRepo.findActivity(req.params.id)
+    if (!activity) {
+      throw { name: 'NotFoundError', message: 'activity not found' }
+    }
+    if (decodedToken.id !== activity.user.toString()) {
+      throw { name: 'UnauthorizedTokenError' }
+    }
+    await activitiesRepo.deleteActivity(req.params.id)
+    await usersRepo.deleteActivityReference(req.params.id)
+    res.status(204).end()
+  } catch(err) {
+    next(err)
+  }
+}
+
 const getActivities = async(req, res, next) => {
   try {
     activities = await activitiesRepo.getActivities()
@@ -37,6 +55,7 @@ const uploadActivity = async(req, res, next) => {
         for (const file of files) {
           const data = fs.readFileSync(file.path)
           const activityData = await gpxParser.parse(data.toString())
+          activityData.user = user._id
           const savedActivity = await activitiesRepo.saveActivity(activityData)
 
           user.activities = user.activities.concat(savedActivity._id)
@@ -52,6 +71,7 @@ const uploadActivity = async(req, res, next) => {
 }
 
 module.exports = {
+  deleteActivity,
   getActivities,
-  uploadActivity
+  uploadActivity,
 }

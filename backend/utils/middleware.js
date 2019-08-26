@@ -15,6 +15,14 @@ const errorHandler = (err, req, res, next) => {
     return res.status(401).json({
       error: err.message
     })
+  } else if (err.name === 'UnauthorizedTokenError') {
+    return res.status(401).json({
+      error: 'unauthorized token to perform this operation'
+    })
+  } else if (err.name === 'NotFoundError') {
+    return res.status(404).json({
+      error: err.message
+    })
   }
   console.error(err.message)
   next(err)

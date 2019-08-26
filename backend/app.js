@@ -12,6 +12,7 @@ const usersRouter = require('./routes/users')
 const middleware = require('./utils/middleware')
 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false)
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
     console.log('connected to MongoDB')

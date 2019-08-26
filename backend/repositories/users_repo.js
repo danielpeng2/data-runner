@@ -1,5 +1,12 @@
 const User = require('../models/user')
 
+const deleteActivityReference = async(id) => {
+  return await User.updateOne(
+    { 'activities': id },
+    { '$pull': { 'activities': id }}
+  )
+}
+
 const getUserById = async(userId) => {
   return await User.findById(userId).populate('activities')
 }
@@ -18,6 +25,7 @@ const updateUser = async(user) => {
 }
 
 module.exports = {
+  deleteActivityReference,
   getUserById,
   getUserByUsername,
   saveUser,
