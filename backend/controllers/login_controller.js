@@ -6,14 +6,16 @@ const SALT_ROUNDS = 10
 
 const createUserAndLogin = async(req, res, next) => {
   const body = req.body
+  if (!body.username || !body.password) {
+    return next({ name: 'InvalidCredentialsError' })
+  }
   const passwordHash = await bcrypt.hash(body.password, SALT_ROUNDS)
   const userData = {
     username: body.username,
     passwordHash,
   }
-  let user
   try {
-    user = await usersRepo.saveUser(userData)
+    var user = await usersRepo.saveUser(userData)
   } catch(err) {
     return next(err)
   }
@@ -35,11 +37,8 @@ const login = async(req, res, next) => {
   }
   const passwordCorrect = !user ? false : await bcrypt.compare(body.password, user.passwordHash)
   if (!user || !passwordCorrect) {
-    return res
-      .status(401)
-      .json({ error: 'invalid username or password' })
+    return next({ name: 'InvalidCredentialsError' }) 
   }
-
   const token = _getUserToken(user)
   res
     .status(200)

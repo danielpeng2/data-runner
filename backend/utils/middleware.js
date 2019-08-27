@@ -23,6 +23,10 @@ const errorHandler = (err, req, res, next) => {
     return res.status(404).json({
       error: err.message
     })
+  } else if (err.name === 'InvalidCredentialsError') {
+    return res.status(401).json({
+      error: 'invalid username or password'
+    })
   }
   console.error(err.message)
   next(err)
