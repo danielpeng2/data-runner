@@ -8,7 +8,7 @@ const getDecodedTokenFromRequest = (req) => {
   const token = authorization.substring(7)
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!decodedToken.id) {
-    throw { name: 'RequestTokenError', message: 'token invalid'}
+    throw { name: 'RequestTokenError', message: 'token invalid' }
   }
   return decodedToken
 }

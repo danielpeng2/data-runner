@@ -1,15 +1,15 @@
-const jwt = require('jsonwebtoken')
 const usersRepo = require('../repositories/users_repo')
 const tokenUtils = require('../utils/token_utils')
 
 const getUser = async(req, res, next) => {
   try {
-    var decodedToken = tokenUtils.getDecodedTokenFromRequest(req)
-    const user = await usersRepo.getUserById(decodedToken.id)
-    res.json(user)
+    const decodedToken = tokenUtils.getDecodedTokenFromRequest(req)
+    var user = await usersRepo.getUserById(decodedToken.id)
+    if (!user) throw { name: 'NotFoundError', message: 'user from token not found' }
   } catch(err) {
-    next(err)
+    return next(err)
   }
+  res.json(user)
 }
 
 module.exports = {
