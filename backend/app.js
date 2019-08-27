@@ -22,11 +22,8 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
   })
 
 app.use(cors())
+app.use(express.static('build'))
 app.use(bodyParser.json())
-
-app.get('/', async (req, res) => {
-  res.send('<div>a<div>')
-})
 
 app.use('/api/activities', activitiesRouter)
 app.use('/api/login', loginRouter)
