@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Dashboard = (props) => {
+const Dashboard = ({ user, handleLogout }) => {
   return (
     <div>
-      Dashboard
+      Dashboard for {user.username}
+      <button onClick={handleLogout}>Log out</button>
     </div>
   )
 }
