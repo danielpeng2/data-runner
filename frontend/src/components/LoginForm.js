@@ -1,60 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: '',
-      password: '',
-    }
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleLogin = props.handleLogin.bind(this)
-    this.handleRegister = props.handleRegister.bind(this)
-  }
+const LoginForm = ({
+  handleLogin,
+  handleRegister,
+}) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  handleInputChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
+  const handleLoginEvent = (event) => {
+    event.preventDefault();
+    handleLogin({
+      'username': username,
+      'password': password
     })
   }
 
-  handleLoginEvent(event) {
+  const handleRegisterEvent = (event) => {
     event.preventDefault();
-    this.handleLogin(this.state)
+    handleRegister({
+      'username': username,
+      'password': password
+    })
   }
 
-  handleRegisterEvent(event) {
-    event.preventDefault();
-    this.handleRegister(this.state)
-  }
-
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleLoginEvent.bind(this)}>
-          <div>
-            username
-            <input
-              name='username'
-              value={this.state.username}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            password
-            <input
-              name='password'
-              type='password'
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <button type='submit'>login</button>
-          <button onClick={this.handleRegisterEvent.bind(this)}>register</button>
-        </form>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <form onSubmit={handleLoginEvent}>
+        <div>
+          username
+          <input
+            value={username}
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input
+            type='password'
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type='submit'>login</button>
+        <button onClick={handleRegisterEvent}>register</button>
+      </form>
+    </div>
+  )
 }
 
 export default LoginForm

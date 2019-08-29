@@ -7,8 +7,10 @@ import LoginForm from './components/LoginForm'
 import PrivateRoute from './components/PrivateRoute'
 import PublicRoute from './components/PublicRoute'
 
+import authUtils from './utils/authUtils'
 import localStorageUtils from './utils/localStorageUtils'
 import loginService from './services/login'
+import activitiesService from './services/activities'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -22,6 +24,7 @@ const App = () => {
 
   const setLoggedInUser = (user) => {
     setUser(user)
+    authUtils.setAuthHeader(user.token)
   }
 
   const handleLogin = async(credentials) => {
@@ -34,6 +37,12 @@ const App = () => {
     }
   }
 
+  const handleLogout = () => {
+    localStorageUtils.removeLoggedInUser()
+    authUtils.removeAuthHeader()
+    setUser(null)
+  }
+
   const handleRegister = async(credentials) => {
     try {
       const user = await loginService.register(credentials)
@@ -44,9 +53,9 @@ const App = () => {
     }
   }
 
-  const handleLogout = () => {
-    localStorageUtils.removeLoggedInUser()
-    setUser(null)
+  const handleUpload = async(files) => {
+    const newActivities = await activitiesService.upload(files)
+    console.log(newActivities)
   }
 
   return (
@@ -73,6 +82,7 @@ const App = () => {
             <Dashboard 
               user={user}
               handleLogout={handleLogout}
+              handleUpload={handleUpload}
             />}
         />
       </Switch>
