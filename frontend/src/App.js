@@ -61,7 +61,10 @@ const App = () => {
 
   const handleUpload = async(files) => {
     const newActivities = await activitiesService.upload(files)
-    console.log(newActivities)
+    setUserData({
+      ...userData,
+      activities: userData.activities.concat(newActivities),
+    })
   }
 
   return (
