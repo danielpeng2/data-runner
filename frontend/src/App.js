@@ -87,6 +87,7 @@ const App = () => {
           render={() => 
             <Dashboard 
               user={user}
+              userData={userData}
               handleLogout={handleLogout}
               handleUpload={handleUpload}
             />}
