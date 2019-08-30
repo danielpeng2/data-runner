@@ -7,13 +7,16 @@ import LoginForm from './components/LoginForm'
 import PrivateRoute from './components/PrivateRoute'
 import PublicRoute from './components/PublicRoute'
 
+import activitiesService from './services/activities'
+import loginService from './services/login'
+import userService from './services/user'
+
 import authUtils from './utils/authUtils'
 import localStorageUtils from './utils/localStorageUtils'
-import loginService from './services/login'
-import activitiesService from './services/activities'
 
 const App = () => {
   const [user, setUser] = useState(null)
+  const [userData, setUserData] = useState(null)
 
   useEffect(() => {
     const loggedInUser = localStorageUtils.getLoggedInUser()
@@ -22,9 +25,11 @@ const App = () => {
     }
   }, [])
 
-  const setLoggedInUser = (user) => {
+  const setLoggedInUser = async(user) => {
     setUser(user)
     authUtils.setAuthHeader(user.token)
+    const data = await userService.getUserData()
+    setUserData(data)
   }
 
   const handleLogin = async(credentials) => {
@@ -41,6 +46,7 @@ const App = () => {
     localStorageUtils.removeLoggedInUser()
     authUtils.removeAuthHeader()
     setUser(null)
+    setUserData(null)
   }
 
   const handleRegister = async(credentials) => {
