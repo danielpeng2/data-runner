@@ -26,7 +26,7 @@ const deleteActivity = async(req, res, next) => {
 
 const getActivities = async(req, res, next) => {
   try {
-    activities = await activitiesRepo.getActivities()
+    const activities = await activitiesRepo.getActivities()
     res.json(activities)
   } catch(err) {
     next(err)
@@ -49,7 +49,7 @@ const uploadActivity = async(req, res, next) => {
       files.push(file)
     })
     .on('end', async() => {
-      savedActivities = []
+      const savedActivities = []
       try {
         const user = await usersRepo.getUserById(decodedToken.id)
         for (const file of files) {
