@@ -25,6 +25,8 @@ const _getActivityDetails = (trk) => {
   let distance = 0
   points.forEach((point, i) => {
     const coord = point['$']
+    coord.lat = parseFloat(coord.lat)
+    coord.lon = parseFloat(coord.lon)
     coords.push(coord)
     if (i === 0) return
 

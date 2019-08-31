@@ -4,8 +4,8 @@ const activitySchema = new mongoose.Schema({
   date: Date,
   coords: [{
     _id: false,
-    lat: String,
-    lon: String,
+    lat: Number,
+    lon: Number,
   }],
   distance: Number,
   name: String,

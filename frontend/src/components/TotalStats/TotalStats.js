@@ -9,7 +9,6 @@ const TotalStats = ({
   averagePace,
 }) => (
   <div>
-    <h2>Total Stats</h2>
     <div>Activities: {activityCount}</div>
     <div>Distance: {totalDistance} km</div>
     <div>Time: {totalTime}</div>
