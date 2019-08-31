@@ -10,17 +10,26 @@ const Dashboard = ({
   handleLogout,
   handleUpload,
 }) => {
+  const getDashboardComponents = () => {
+    if (!userData) {
+      return <div>Loading</div>
+    } else if (userData.activities.length === 0) {
+      return <div>Upload an activity to get started!</div>
+    } else {
+      return (
+        <div> 
+          <TotalStatsContainer activities={userData.activities} />
+          <ActivityHeatmapContainer activities={userData.activities} />
+        </div>
+      )
+    }
+  }
   return (
     <div>
       Dashboard for {user.username}
       <button onClick={handleLogout}>Log out</button>
       <UploadForm handleUpload={handleUpload} />
-      {userData
-        ? <div> 
-            <TotalStatsContainer activities={userData.activities} />
-            <ActivityHeatmapContainer activities={userData.activities} />
-          </div>
-        : <div>loading</div>}
+      {getDashboardComponents()}
     </div>
   )
 }
