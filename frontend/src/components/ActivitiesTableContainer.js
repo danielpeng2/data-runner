@@ -4,42 +4,37 @@ import { Table } from 'antd'
 import formatUtils from '../utils/formatUtils' 
 
 const ActivitiesTableContainer = ({ activities, handleDelete }) => {
-  const data = activities.reverse()
   const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
     },
     {
       title: 'Date',
       dataIndex: 'date',
-      key: 'date',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
     },
     {
       title: 'Time',
-      dataIndex: 'time',
-      key: 'time',      
+      dataIndex: 'time',   
     },
     {
       title: 'Distance',
-      dataIndex: 'distance',
-      key: 'distance',      
+      dataIndex: 'distance', 
     },
     {
       title: 'Pace',
-      dataIndex: 'pace',
-      key: 'pace',      
+      dataIndex: 'pace', 
     },
     {
       title: 'Action',
-      key: 'action',
       render: (activity) => (
         <a onClick={() => handleDelete(activity.id)}>Delete</a>
       ),
     },
   ]
-  const dataSource = data.map((activity) => ({
+  const dataSource = activities.map((activity) => ({
     id: activity.id,
     name: activity.name,
     date: formatUtils.formatDate(new Date(activity.date)),

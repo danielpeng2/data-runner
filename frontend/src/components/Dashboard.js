@@ -18,7 +18,7 @@ const Dashboard = ({
 }) => {
   const getDashboardComponents = () => {
     if (!userData) {
-      return <div>Loading</div>
+      return <div>Loading activities.</div>
     } else if (userData.activities.length === 0) {
       return <div>Upload an activity to get started!</div>
     } else {
@@ -32,7 +32,7 @@ const Dashboard = ({
           <TabPane tab='Activities' key='2'>
             <ActivitiesTableContainer 
               activities={userData.activities} 
-              handleDelete={handleDelete}/>
+              handleDelete={handleDelete} />
           </TabPane>
         </Tabs>
       )

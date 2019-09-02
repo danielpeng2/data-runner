@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import 'antd/dist/antd.css'
 
 import Dashboard from './components/Dashboard'
 import Home from './components/Home'
 import LoginForm from './components/LoginForm'
+import LoadingSpinner from './components/LoadingSpinner'
 import PrivateRoute from './components/PrivateRoute'
 import PublicRoute from './components/PublicRoute'
 
@@ -18,6 +19,7 @@ import localStorageUtils from './utils/localStorageUtils'
 const App = () => {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const loggedInUser = localStorageUtils.getLoggedInUser()
@@ -29,7 +31,9 @@ const App = () => {
   const setLoggedInUser = async(user) => {
     setUser(user)
     authUtils.setAuthHeader(user.token)
+    setLoading(true)
     const data = await userService.getUserData()
+    setLoading(false)
     setUserData(data)
   }
 
@@ -61,7 +65,9 @@ const App = () => {
   }
 
   const handleUpload = async(files) => {
+    setLoading(true)
     const newActivities = await activitiesService.upload(files)
+    setLoading(false)
     setUserData({
       ...userData,
       activities: userData.activities.concat(newActivities),
@@ -69,7 +75,9 @@ const App = () => {
   }
 
   const handleDelete = async(id) => {
+    setLoading(true)
     await activitiesService.deleteActivity(id)
+    setLoading(false)
     setUserData({
       ...userData,
       activities: userData.activities.filter((activity) => activity.id !== id)
@@ -78,6 +86,7 @@ const App = () => {
 
   return (
     <Router>
+      {loading && <LoadingSpinner />}
       <Switch>
         <PublicRoute 
           user={user} 
@@ -100,6 +109,7 @@ const App = () => {
             <Dashboard 
               user={user}
               userData={userData}
+              loading={loading}
               handleLogout={handleLogout}
               handleUpload={handleUpload}
               handleDelete={handleDelete}
