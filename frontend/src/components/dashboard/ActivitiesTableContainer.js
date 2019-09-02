@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'antd'
 
-import formatUtils from '../utils/formatUtils' 
+import formatUtils from '../../utils/formatUtils' 
 
 const ActivitiesTableContainer = ({ activities, handleDelete }) => {
   const columns = [

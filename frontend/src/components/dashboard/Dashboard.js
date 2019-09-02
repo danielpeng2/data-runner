@@ -1,10 +1,10 @@
 import React from 'react'
 import { Tabs } from 'antd'
 
-import ActivityHeatmapContainer from './ActivityHeatmap/ActivityHeatmapContainer'
+import ActivityHeatmapContainer from './ActivityHeatmapContainer'
 import ActivitiesTableContainer from './ActivitiesTableContainer'
-import HistoryHeatmapContainer from './HistoryHeatmap/HistoryHeatmapContainer'
-import TotalStatsContainer from './TotalStats/TotalStatsContainer'
+import HistoryHeatmapContainer from './HistoryHeatmapContainer'
+import TotalStatsContainer from './TotalStatsContainer'
 import UploadForm from './UploadForm'
 
 const { TabPane } = Tabs
