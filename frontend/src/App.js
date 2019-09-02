@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom'
+import 'antd/dist/antd.css'
 
 import Dashboard from './components/Dashboard'
 import Home from './components/Home'

@@ -1,9 +1,13 @@
 import React from 'react'
+import { Tabs } from 'antd'
 
 import ActivityHeatmapContainer from './ActivityHeatmap/ActivityHeatmapContainer'
+import ActivitiesTableContainer from './ActivitiesTableContainer'
 import HistoryHeatmapContainer from './HistoryHeatmap/HistoryHeatmapContainer'
 import TotalStatsContainer from './TotalStats/TotalStatsContainer'
 import UploadForm from './UploadForm'
+
+const { TabPane } = Tabs
 
 const Dashboard = ({ 
   user,
@@ -18,11 +22,16 @@ const Dashboard = ({
       return <div>Upload an activity to get started!</div>
     } else {
       return (
-        <div> 
-          <TotalStatsContainer activities={userData.activities} />
-          <HistoryHeatmapContainer activities={userData.activities} />
-          <ActivityHeatmapContainer activities={userData.activities} />
-        </div>
+        <Tabs defaultActiveKey="1">
+          <TabPane tab='Dashboard' key='1'>
+            <TotalStatsContainer activities={userData.activities} />
+            <HistoryHeatmapContainer activities={userData.activities} />
+            <ActivityHeatmapContainer activities={userData.activities} />
+          </TabPane>
+          <TabPane tab='Activities' key='2'>
+            <ActivitiesTableContainer activities={userData.activities} />
+          </TabPane>
+        </Tabs>
       )
     }
   }
