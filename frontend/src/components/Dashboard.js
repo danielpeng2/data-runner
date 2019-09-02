@@ -14,6 +14,7 @@ const Dashboard = ({
   userData,
   handleLogout,
   handleUpload,
+  handleDelete,
 }) => {
   const getDashboardComponents = () => {
     if (!userData) {
@@ -29,7 +30,9 @@ const Dashboard = ({
             <ActivityHeatmapContainer activities={userData.activities} />
           </TabPane>
           <TabPane tab='Activities' key='2'>
-            <ActivitiesTableContainer activities={userData.activities} />
+            <ActivitiesTableContainer 
+              activities={userData.activities} 
+              handleDelete={handleDelete}/>
           </TabPane>
         </Tabs>
       )

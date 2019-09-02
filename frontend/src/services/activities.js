@@ -2,6 +2,10 @@ import axios from 'axios'
 
 const BASE_URL = '/api/activities'
 
+const deleteActivity = async(id) => {
+  await axios.delete(`${BASE_URL}/${id}`)
+}
+
 const upload = async(files) => {
   const formData = new FormData()
   files.forEach((file) => {
@@ -12,5 +16,6 @@ const upload = async(files) => {
 }
 
 export default {
+  deleteActivity,
   upload,
 }

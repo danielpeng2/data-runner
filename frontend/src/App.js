@@ -68,6 +68,14 @@ const App = () => {
     })
   }
 
+  const handleDelete = async(id) => {
+    await activitiesService.deleteActivity(id)
+    setUserData({
+      ...userData,
+      activities: userData.activities.filter((activity) => activity.id !== id)
+    })
+  }
+
   return (
     <Router>
       <Switch>
@@ -94,6 +102,7 @@ const App = () => {
               userData={userData}
               handleLogout={handleLogout}
               handleUpload={handleUpload}
+              handleDelete={handleDelete}
             />}
         />
       </Switch>

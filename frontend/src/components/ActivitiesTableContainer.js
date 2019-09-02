@@ -3,7 +3,7 @@ import { Table } from 'antd'
 
 import formatUtils from '../utils/formatUtils' 
 
-const ActivitiesTableContainer = ({ activities }) => {
+const ActivitiesTableContainer = ({ activities, handleDelete }) => {
   const data = activities.reverse()
   const columns = [
     {
@@ -34,12 +34,13 @@ const ActivitiesTableContainer = ({ activities }) => {
     {
       title: 'Action',
       key: 'action',
-      render: () => (
-        <a>Delete</a>
+      render: (activity) => (
+        <a onClick={() => handleDelete(activity.id)}>Delete</a>
       ),
     },
   ]
   const dataSource = data.map((activity) => ({
+    id: activity.id,
     name: activity.name,
     date: formatUtils.formatDate(new Date(activity.date)),
     time: formatUtils.formatTime(activity.time),
