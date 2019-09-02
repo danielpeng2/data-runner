@@ -4,7 +4,6 @@ import 'antd/dist/antd.css'
 
 import Dashboard from './components/dashboard/Dashboard'
 import Home from './components/home/Home'
-import LoginForm from './components/login/LoginForm'
 import LoadingSpinner from './components/LoadingSpinner'
 import PrivateRoute from './components/PrivateRoute'
 import PublicRoute from './components/PublicRoute'
@@ -91,13 +90,8 @@ const App = () => {
         <PublicRoute 
           user={user} 
           exact path='/' 
-          render={() => <Home />}
-        />
-        <PublicRoute 
-          user={user} 
-          exact path='/login' 
           render={() => 
-            <LoginForm 
+            <Home
               handleLogin={handleLogin} 
               handleRegister={handleRegister}
             />}
