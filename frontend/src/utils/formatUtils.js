@@ -1,5 +1,5 @@
 const formatDistance = (dist) => {
-  return dist.toFixed(2)
+  return parseFloat(dist.toFixed(2))
 }
 
 const formatTime = (seconds) => {

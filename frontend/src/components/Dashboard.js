@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ActivityHeatmapContainer from './ActivityHeatmap/ActivityHeatmapContainer'
+import HistoryHeatmapContainer from './HistoryHeatmap/HistoryHeatmapContainer'
 import TotalStatsContainer from './TotalStats/TotalStatsContainer'
 import UploadForm from './UploadForm'
 
@@ -19,6 +20,7 @@ const Dashboard = ({
       return (
         <div> 
           <TotalStatsContainer activities={userData.activities} />
+          <HistoryHeatmapContainer activities={userData.activities} />
           <ActivityHeatmapContainer activities={userData.activities} />
         </div>
       )
