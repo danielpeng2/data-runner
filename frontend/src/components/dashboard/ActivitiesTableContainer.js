@@ -1,7 +1,17 @@
 import React from 'react'
 import { Table } from 'antd'
+import styled from 'styled-components'
 
-import formatUtils from '../../utils/formatUtils' 
+import formatUtils from '../../utils/formatUtils'
+
+const Action = styled.div`
+  color: #1890ff;
+  transition: 0.3s;
+  &:hover {
+    color: #40a9ff;
+    cursor: pointer;
+  }
+`
 
 const ActivitiesTableContainer = ({ activities, handleDelete }) => {
   const columns = [
@@ -30,11 +40,12 @@ const ActivitiesTableContainer = ({ activities, handleDelete }) => {
     {
       title: 'Action',
       render: (activity) => (
-        <a onClick={() => handleDelete(activity.id)}>Delete</a>
+        <Action onClick={() => handleDelete(activity.id)}>Delete</Action>
       ),
     },
   ]
-  const dataSource = activities.map((activity) => ({
+  const dataSource = activities.map((activity, i) => ({
+    key: i,
     id: activity.id,
     name: activity.name,
     date: formatUtils.formatDate(new Date(activity.date)),
