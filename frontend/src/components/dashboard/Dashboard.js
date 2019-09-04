@@ -1,13 +1,26 @@
 import React from 'react'
-import { Tabs } from 'antd'
+import { Empty, Tabs } from 'antd'
+import styled from 'styled-components'
 
 import ActivityHeatmapContainer from './ActivityHeatmapContainer'
 import ActivitiesTableContainer from './ActivitiesTableContainer'
+import Header from './Header'
 import HistoryHeatmapContainer from './HistoryHeatmapContainer'
 import TotalStatsContainer from './TotalStatsContainer'
-import UploadForm from './UploadForm'
+import withCard from './withCard'
 
 const { TabPane } = Tabs
+
+const DashboardContainer = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F5F5FA;
+`
+
+const ColumnContainer = styled.div`
+  margin: 0 auto;
+  max-width: 60em;
+`
 
 const Dashboard = ({ 
   user,
@@ -20,18 +33,27 @@ const Dashboard = ({
     if (!userData) {
       return <div>Loading activities.</div>
     } else if (userData.activities.length === 0) {
-      return <div>Upload an activity to get started!</div>
+      return <Empty />
     } else {
       return (
-        <Tabs defaultActiveKey="1">
+        <Tabs defaultActiveKey="1" >
           <TabPane tab='Dashboard' key='1'>
-            <TotalStatsContainer activities={userData.activities} />
-            <HistoryHeatmapContainer activities={userData.activities} />
-            <ActivityHeatmapContainer activities={userData.activities} />
+            {withCard(
+              'Total Stats',
+              <TotalStatsContainer activities={userData.activities} />
+            )}
+            {withCard(
+              'Past 12 Months',
+              <HistoryHeatmapContainer activities={userData.activities} />
+            )}
+            {withCard(
+              'Heatmap',
+              <ActivityHeatmapContainer activities={userData.activities} />
+            )}
           </TabPane>
           <TabPane tab='Activities' key='2'>
-            <ActivitiesTableContainer 
-              activities={userData.activities} 
+            <ActivitiesTableContainer
+              activities={userData.activities}
               handleDelete={handleDelete} />
           </TabPane>
         </Tabs>
@@ -39,12 +61,15 @@ const Dashboard = ({
     }
   }
   return (
-    <div>
-      Dashboard for {user.username}
-      <button onClick={handleLogout}>Log out</button>
-      <UploadForm handleUpload={handleUpload} />
-      {getDashboardComponents()}
-    </div>
+    <DashboardContainer>
+      <Header 
+        username={user.username}
+        handleLogout={handleLogout}
+        handleUpload={handleUpload} />
+      <ColumnContainer>
+        {getDashboardComponents()}
+      </ColumnContainer>
+    </DashboardContainer>
   )
 }
 

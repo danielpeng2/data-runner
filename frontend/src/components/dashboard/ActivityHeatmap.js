@@ -4,7 +4,7 @@ import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import 'leaflet/dist/leaflet.css'
 
 const ActivityHeatmap = ({ center, coords }) => (
-  <div style={{ height: '500px', width: '800px' }}>
+  <div style={{ height: '500px' }}>
     <LeafletMap 
       center={[center.lat, center.lon]}
       zoom={12} 

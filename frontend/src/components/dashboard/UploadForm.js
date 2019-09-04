@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Button } from 'antd'
 
 const UploadForm = ({
   handleUpload
@@ -11,12 +12,12 @@ const UploadForm = ({
   }
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input type='file' multiple onChange={({ target }) => setFiles(Array.from(target.files))} />
-        <button type='submit'>upload</button>
-      </form>
-    </div>
+    <form onSubmit={onSubmit}>
+      <input type='file' multiple onChange={({ target }) => setFiles(Array.from(target.files))} />
+      <Button type='primary' htmlType='submit'>
+        Upload
+      </Button>
+    </form>
   )
 }
 

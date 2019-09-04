@@ -51,10 +51,10 @@ const LoginForm = ({
           onChange={({ target }) => setPassword(target.value)} />
       </FormItem>
       <SubmitButtonsContainer>
-        <Button type='primary' htmlType='submit' className="login-form-button">
+        <Button type='primary' htmlType='submit'>
           Log in
         </Button>
-        <Button onClick={handleRegisterEvent} className="login-form-button">
+        <Button onClick={handleRegisterEvent}>
           Register
         </Button>
       </SubmitButtonsContainer>

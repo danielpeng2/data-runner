@@ -2,16 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { Spin } from 'antd'
 
-const Container = styled.div`
+const Spinner = styled(Spin)`
   position: fixed;
-  top: 2em;
+  top: 6.5em;
   left: 2em;
 `
 
 const LoadingSpinner = () => (
-  <Container>
-    <Spin />
-  </Container>
+  <Spinner />
 )
 
 export default LoadingSpinner

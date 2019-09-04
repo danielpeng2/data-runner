@@ -15,15 +15,12 @@ const TotalStatsContainer = ({ activities }) => {
   const averagePace = Math.round(totalTime / totalDistance)
 
   return (
-    <div>
-      <h2>Total Stats</h2>
-      <TotalStats
-        activityCount={activityCount}
-        totalDistance={formatUtils.formatDistance(totalDistance)}
-        totalTime={formatUtils.formatTime(totalTime)}
-        averageDistance={formatUtils.formatDistance(averageDistance)}
-        averagePace={formatUtils.formatTime(averagePace)} />
-    </div>
+    <TotalStats
+      activityCount={activityCount}
+      totalDistance={formatUtils.formatDistance(totalDistance)}
+      totalTime={formatUtils.formatTime(totalTime)}
+      averageDistance={formatUtils.formatDistance(averageDistance)}
+      averagePace={formatUtils.formatTime(averagePace)} />
   )
 }
 

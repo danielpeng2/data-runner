@@ -13,6 +13,10 @@ const Action = styled.div`
   }
 `
 
+const ActivityTable = styled(Table)`
+  background-color: #ffffff;
+`
+
 const ActivitiesTableContainer = ({ activities, handleDelete }) => {
   const columns = [
     {
@@ -22,8 +26,8 @@ const ActivitiesTableContainer = ({ activities, handleDelete }) => {
     {
       title: 'Date',
       dataIndex: 'date',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => new Date(a.date) - new Date(b.date),
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => new Date(b.date) - new Date(a.date),
     },
     {
       title: 'Time',
@@ -54,9 +58,10 @@ const ActivitiesTableContainer = ({ activities, handleDelete }) => {
     pace: formatUtils.formatTime(activity.pace),
   }))
   return (
-    <Table 
+    <ActivityTable 
       columns={columns} 
-      dataSource={dataSource} />
+      dataSource={dataSource}
+      pagination={false} />
   )
 }
 

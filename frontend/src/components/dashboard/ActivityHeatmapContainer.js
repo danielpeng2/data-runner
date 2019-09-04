@@ -8,12 +8,9 @@ const ActivityHeatmapContainer = ({ activities }) => {
     coords = coords.concat(activity.coords)
   })
   return (
-    <div>
-      <h2>Heatmap</h2>
-      <ActivityHeatmap
-        center={coords[0]}
-        coords={coords} />
-    </div>
+    <ActivityHeatmap
+      center={coords[0]}
+      coords={coords} />
   )
 }
 

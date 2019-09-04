@@ -28,12 +28,9 @@ const HistoryHeatmapContainer = ({ activities }) => {
     }
   ))
   return (
-    <div>
-      <h2>Past 12 Months</h2>
-      <HistoryHeatmap 
-        seriesData={seriesData.reverse()} 
-        highestDistance={highestDistance} />
-    </div>
+    <HistoryHeatmap 
+      seriesData={seriesData.reverse()} 
+      highestDistance={highestDistance} />
   )
 }
 

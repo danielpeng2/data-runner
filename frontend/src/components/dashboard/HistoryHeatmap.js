@@ -28,7 +28,11 @@ const HistoryHeatmap = ({ seriesData, highestDistance }) => {
     },
   }
   return (
-    <Chart options={options} series={seriesData} type='heatmap' height='350' width='800'/>
+    <Chart 
+      options={options} 
+      series={seriesData} 
+      type='heatmap' 
+      height='350' />
   )
 }
 
