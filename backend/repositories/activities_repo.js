@@ -8,10 +8,6 @@ const findActivity = async(id) => {
   return await Activity.findById(id)
 }
 
-const getActivities = async() => {
-  return await Activity.find({})
-}
-
 const saveActivity = async(activityData) => {
   const activity = new Activity(activityData)
   return await activity.save()
@@ -20,6 +16,5 @@ const saveActivity = async(activityData) => {
 module.exports = {
   deleteActivity,
   findActivity,
-  getActivities,
   saveActivity,
 }

@@ -64,7 +64,7 @@ const uploadActivity = async(req, res, next) => {
         }
         res.json(savedActivities)
       } catch(err) {
-        next(err)
+        return next(err)
       }
     })
   form.parse(req)

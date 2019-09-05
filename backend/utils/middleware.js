@@ -27,6 +27,10 @@ const errorHandler = (err, req, res, next) => {
     return res.status(401).json({
       error: 'invalid username or password'
     })
+  } else if (err.name === 'GPXParseError') {
+    return res.status(400).json({
+      error: 'invalid GPX file'
+    })
   }
   console.error(err.message)
   next(err)
