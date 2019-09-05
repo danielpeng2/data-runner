@@ -75,6 +75,9 @@ const App = () => {
   const handleUpload = async(files) => {
     setLoading(true)
     try {
+      if (!files || !files.length) {
+        throw { message: 'please select files before uploading' }
+      }
       const newActivities = await activitiesService.upload(files)
       message.success('Upload successful')
       setUserData({
