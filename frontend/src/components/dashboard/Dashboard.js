@@ -12,9 +12,10 @@ import withCard from './withCard'
 const { TabPane } = Tabs
 
 const DashboardContainer = styled.div`
-  width: 100%;
-  min-height: 100vh;
   background-color: #F5F5FA;
+  min-height: 100vh;
+  padding-bottom: 1em;
+  width: 100%;
 `
 
 const ColumnContainer = styled.div`

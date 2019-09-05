@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { message } from 'antd'
 import 'antd/dist/antd.css'
 
 import Dashboard from './components/dashboard/Dashboard'
@@ -20,30 +21,36 @@ const App = () => {
   const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+  useEffect(async() => {
     const loggedInUser = localStorageUtils.getLoggedInUser()
     if (loggedInUser) {
-      setLoggedInUser(loggedInUser)
+      setLoading(true)
+      await setLoggedInUser(loggedInUser)
+      setLoading(false)
     }
   }, [])
 
   const setLoggedInUser = async(user) => {
     setUser(user)
     authUtils.setAuthHeader(user.token)
-    setLoading(true)
-    const data = await userService.getUserData()
-    setLoading(false)
-    setUserData(data)
+    try {
+      const data = await userService.getUserData()
+      setUserData(data)
+    } catch(err) {
+      message.error(err.message)
+    }
   }
 
   const handleLogin = async(credentials) => {
+    setLoading(true)
     try {
       const user = await loginService.login(credentials)
       localStorageUtils.saveLoggedInUser(user)
-      setLoggedInUser(user)
+      await setLoggedInUser(user)
     } catch(err) {
-      console.log(err)
+      message.error(err.message)
     }
+    setLoading(false)
   }
 
   const handleLogout = () => {
@@ -54,33 +61,45 @@ const App = () => {
   }
 
   const handleRegister = async(credentials) => {
+    setLoading(true)
     try {
       const user = await loginService.register(credentials)
       localStorageUtils.saveLoggedInUser(user)
-      setLoggedInUser(user)
+      await setLoggedInUser(user)
     } catch(err) {
-      console.log(err)
+      message.error(err.message)
     }
+    setLoading(false)
   }
 
   const handleUpload = async(files) => {
     setLoading(true)
-    const newActivities = await activitiesService.upload(files)
+    try {
+      const newActivities = await activitiesService.upload(files)
+      message.success('Upload successful')
+      setUserData({
+        ...userData,
+        activities: userData.activities.concat(newActivities),
+      })
+    } catch(err) {
+      message.error(err.message)
+    }
     setLoading(false)
-    setUserData({
-      ...userData,
-      activities: userData.activities.concat(newActivities),
-    })
   }
 
   const handleDelete = async(id) => {
     setLoading(true)
-    await activitiesService.deleteActivity(id)
+    try {
+      await activitiesService.deleteActivity(id)
+      message.success('Delete successful')
+      setUserData({
+        ...userData,
+        activities: userData.activities.filter((activity) => activity.id !== id)
+      })
+    } catch(err) {
+      message.error(err.message)
+    }
     setLoading(false)
-    setUserData({
-      ...userData,
-      activities: userData.activities.filter((activity) => activity.id !== id)
-    })
   }
 
   return (
