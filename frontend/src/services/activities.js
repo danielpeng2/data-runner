@@ -6,7 +6,7 @@ const deleteActivity = async(id) => {
   try {
     await axios.delete(`${BASE_URL}/${id}`)
   } catch(err) {
-    throw { message: err.response.data.error }
+    throw Error(err.response.data.error)
   }
 }
 
@@ -19,7 +19,7 @@ const upload = async(files) => {
     const res = await axios.post(`${BASE_URL}/upload`, formData)
     return res.data
   } catch(err) {
-    throw { message: err.response.data.error }
+    throw Error(err.response.data.error)
   }
 }
 

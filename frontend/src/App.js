@@ -21,24 +21,24 @@ const App = () => {
   const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  useEffect(async() => {
+  useEffect(() => {
     const loggedInUser = localStorageUtils.getLoggedInUser()
     if (loggedInUser) {
-      setLoading(true)
-      await setLoggedInUser(loggedInUser)
-      setLoading(false)
+      setLoggedInUser(loggedInUser)
     }
   }, [])
 
   const setLoggedInUser = async(user) => {
     setUser(user)
     authUtils.setAuthHeader(user.token)
+    setLoading(true)
     try {
       const data = await userService.getUserData()
       setUserData(data)
     } catch(err) {
       message.error(err.message)
     }
+    setLoading(false)
   }
 
   const handleLogin = async(credentials) => {
@@ -76,7 +76,7 @@ const App = () => {
     setLoading(true)
     try {
       if (!files || !files.length) {
-        throw { message: 'please select files before uploading' }
+        throw Error('please select files before uploading')
       }
       const newActivities = await activitiesService.upload(files)
       message.success('Upload successful')

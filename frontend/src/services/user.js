@@ -7,7 +7,7 @@ const getUserData = async() => {
     const res = await axios.get(BASE_URL)
     return res.data
   } catch(err) {
-    throw { message: err.response.data.error }
+    throw Error(err.response.data.error)
   }
 }
 

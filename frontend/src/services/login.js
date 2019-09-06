@@ -5,7 +5,7 @@ const login = async(credentials) => {
     const res = await axios.post('/api/login', credentials)
     return res.data
   } catch(err) {
-    throw { message: err.response.data.error }
+    throw Error(err.response.data.error)
   }
 }
 
@@ -14,7 +14,7 @@ const register = async(credentials) => {
     const res = await axios.post('/api/register', credentials)
     return res.data
   } catch(err) {
-    throw { message: err.response.data.error }
+    throw Error(err.response.data.error)
   }
 }
 
