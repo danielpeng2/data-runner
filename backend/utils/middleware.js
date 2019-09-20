@@ -5,7 +5,7 @@ const errorHandler = (err, req, res, next) => {
     })
   } else if (err.name === 'ValidationError') {
     return res.status(400).json({
-      error: err.message
+      error: 'username already taken'
     })
   } else if (err.name === 'JsonWebTokenError') {
     return res.status(401).json({
