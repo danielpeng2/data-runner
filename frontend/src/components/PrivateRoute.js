@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from "react-redux";
 import { Route, Redirect } from 'react-router-dom'
 
 const PrivateRoute = ({ render, user, ...rest }) => (
@@ -8,4 +9,8 @@ const PrivateRoute = ({ render, user, ...rest }) => (
   />
 )
 
-export default PrivateRoute
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps)(PrivateRoute)

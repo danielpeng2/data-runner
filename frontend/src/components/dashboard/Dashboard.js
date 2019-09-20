@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Empty, Tabs } from 'antd'
 import styled from 'styled-components'
 
@@ -23,17 +24,11 @@ const ColumnContainer = styled.div`
   max-width: 60em;
 `
 
-const Dashboard = ({ 
-  user,
-  userData,
-  handleLogout,
-  handleUpload,
-  handleDelete,
-}) => {
+const Dashboard = ({ activities }) => {
   const getDashboardComponents = () => {
-    if (!userData) {
+    if (activities === null) {
       return <div>Loading activities.</div>
-    } else if (userData.activities.length === 0) {
+    } else if (activities.length === 0) {
       return <Empty />
     } else {
       return (
@@ -41,21 +36,19 @@ const Dashboard = ({
           <TabPane tab='Dashboard' key='1'>
             {withCard(
               'Total Stats',
-              <TotalStatsContainer activities={userData.activities} />
+              <TotalStatsContainer activities={activities} />
             )}
             {withCard(
               'Past 12 Months',
-              <HistoryHeatmapContainer activities={userData.activities} />
+              <HistoryHeatmapContainer activities={activities} />
             )}
             {withCard(
               'Heatmap',
-              <ActivityHeatmapContainer activities={userData.activities} />
+              <ActivityHeatmapContainer activities={activities} />
             )}
           </TabPane>
           <TabPane tab='Activities' key='2'>
-            <ActivitiesTableContainer
-              activities={userData.activities}
-              handleDelete={handleDelete} />
+            <ActivitiesTableContainer activities={activities} />
           </TabPane>
         </Tabs>
       )
@@ -63,10 +56,7 @@ const Dashboard = ({
   }
   return (
     <DashboardContainer>
-      <Header 
-        username={user.username}
-        handleLogout={handleLogout}
-        handleUpload={handleUpload} />
+      <Header />
       <ColumnContainer>
         {getDashboardComponents()}
       </ColumnContainer>
@@ -74,4 +64,8 @@ const Dashboard = ({
   )
 }
 
-export default Dashboard
+const mapStateToProps = (state) => ({
+  activities: state.activities
+})
+
+export default connect(mapStateToProps)(Dashboard)

@@ -1,0 +1,10 @@
+// Activities
+export const DELETE_ACTIVITY = 'DELETE_ACTIVITY'
+export const INIT_ACTIVITIES = 'INIT_ACTIVITIES'
+export const NEW_ACTIVITIES = 'NEW_ACTIVITIES'
+// Loading
+export const SET_LOADING = 'SET_LOADING'
+export const SET_NOT_LOADING = 'SET_NOT_LOADING'
+// Login
+export const SET_LOGGED_IN_USER = 'SET_LOGGED_IN_USER'
+export const REMOVE_LOGGED_IN_USER = 'REMOVE_LOGGED_IN_USER'

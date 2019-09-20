@@ -1,8 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Button } from 'antd'
 import styled from 'styled-components'
 
 import UploadForm from './UploadForm'
+import { logoutUser } from '../../actions/loginActions'
 
 const HeaderBar = styled.div`
   background-color: #ffffff;
@@ -22,16 +24,25 @@ const ColumnContainer = styled.div`
   min-height: 3.5em;
 `
 
-const Header = ({ username, handleLogout, handleUpload }) => (
+const Header = ({ username, logoutUser }) => (
   <HeaderBar>
     <ColumnContainer>
-      <UploadForm handleUpload={handleUpload} />
+      <UploadForm />
       <div>
         Logged in as <strong>{username}</strong>&nbsp;&nbsp;&nbsp;
-        <Button onClick={handleLogout}>Log out</Button>
+        <Button onClick={logoutUser}>Log out</Button>
       </div>
     </ColumnContainer>
   </HeaderBar>
 )
 
-export default Header
+const mapStateToProps = (state) => {
+  return {
+    username: state.user.username,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Header)

@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Button } from 'antd'
 
-const UploadForm = ({
-  handleUpload
-}) => {
+import { uploadActivities } from '../../actions/activityActions'
+
+const UploadForm = (props) => {
   const [files, setFiles] = useState(null)
 
   const onSubmit = (event) => {
     event.preventDefault()
-    handleUpload(files)
+    props.uploadActivities(files)
   }
 
   return (
@@ -21,4 +22,7 @@ const UploadForm = ({
   )
 }
 
-export default UploadForm
+export default connect(
+  null,
+  { uploadActivities }
+)(UploadForm)

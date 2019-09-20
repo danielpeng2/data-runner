@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Table } from 'antd'
 import styled from 'styled-components'
 
+import { deleteActivity } from '../../actions/activityActions'
 import formatUtils from '../../utils/formatUtils'
 
 const Action = styled.div`
@@ -17,7 +19,7 @@ const ActivityTable = styled(Table)`
   background-color: #ffffff;
 `
 
-const ActivitiesTableContainer = ({ activities, handleDelete }) => {
+const ActivitiesTableContainer = ({ activities, deleteActivity }) => {
   const columns = [
     {
       title: 'Name',
@@ -44,7 +46,7 @@ const ActivitiesTableContainer = ({ activities, handleDelete }) => {
     {
       title: 'Action',
       render: (activity) => (
-        <Action onClick={() => handleDelete(activity.id)}>Delete</Action>
+        <Action onClick={() => deleteActivity(activity.id)}>Delete</Action>
       ),
     },
   ]
@@ -65,4 +67,7 @@ const ActivitiesTableContainer = ({ activities, handleDelete }) => {
   )
 }
 
-export default ActivitiesTableContainer
+export default connect(
+  null,
+  { deleteActivity }
+)(ActivitiesTableContainer)

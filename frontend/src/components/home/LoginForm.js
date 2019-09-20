@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Icon, Input, Button } from 'antd'
 import styled from 'styled-components'
+
+import { loginUser, registerUser } from "../../actions/loginActions"
 
 const FormItem = styled.div`
   margin-bottom: 1em;
@@ -11,16 +14,13 @@ const SubmitButtonsContainer = styled.div`
   justify-content: space-between;
 `
 
-const LoginForm = ({
-  handleLogin,
-  handleRegister,
-}) => {
+const LoginForm = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const handleLoginEvent = (event) => {
     event.preventDefault();
-    handleLogin({
+    props.loginUser({
       'username': username,
       'password': password
     })
@@ -28,7 +28,7 @@ const LoginForm = ({
 
   const handleRegisterEvent = (event) => {
     event.preventDefault();
-    handleRegister({
+    props.registerUser({
       'username': username,
       'password': password
     })
@@ -62,4 +62,7 @@ const LoginForm = ({
   )
 }
 
-export default LoginForm
+export default connect(
+  null,
+  { loginUser, registerUser }
+)(LoginForm)
